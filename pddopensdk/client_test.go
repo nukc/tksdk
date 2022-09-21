@@ -6,6 +6,7 @@ import (
 	request2 "github.com/mimicode/tksdk/pddopensdk/request"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkallorderlistincrementget"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodsdetail"
+	"github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodspidquery"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodspromotionurlgenerate"
 	pddddkgoodsrecommendget2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodsrecommendget"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddddkgoodssearch"
@@ -696,5 +697,24 @@ func TestPddPopAuthTokenRefreshRequest(t *testing.T) {
 	} else {
 		result := getResponse.(*pddpopauthtokenrefresh.Response)
 		fmt.Println(result)
+	}
+}
+
+func TestPddDdkGoodsPidRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.PddDdkGoodsPidQueryRequest{}
+	getRequest.AddParameter("page", `1`)
+	getRequest.AddParameter("page_size", `10`)
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &pddddkgoodspidquery.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*pddddkgoodspidquery.Response)
+		t.Logf("%+v", result)
 	}
 }
