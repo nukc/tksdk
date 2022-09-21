@@ -29,6 +29,7 @@ import (
 	pddddkresourceurlgen2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkresourceurlgen"
 	pddddkrppromurlgenerate2 "github.com/mimicode/tksdk/pddopensdk/response/pddddkrppromurlgenerate"
 	"github.com/mimicode/tksdk/pddopensdk/response/pddpopauthtokencreate"
+	"github.com/mimicode/tksdk/pddopensdk/response/pddpopauthtokenrefresh"
 	"io/ioutil"
 	"os"
 	"testing"
@@ -676,6 +677,24 @@ func TestPddPopAuthTokenCreateRequest(t *testing.T) {
 		t.Log(err)
 	} else {
 		result := getResponse.(*pddpopauthtokencreate.Response)
+		fmt.Println(result)
+	}
+}
+
+func TestPddPopAuthTokenRefreshRequest(t *testing.T) {
+	client := GetClient()
+	//初始化请求接口信息
+	getRequest := &request2.PddPopAuthTokenRefreshRequest{}
+	getRequest.AddParameter("refresh_token", `0f83089700794d828ad88ad0cf8d1556a35f6862`)
+
+	//初始化结果类型
+	var getResponse DefaultResponse = &pddpopauthtokenrefresh.Response{}
+	//执行请求接口得到结果
+	err := client.Exec(getRequest, getResponse)
+	if err != nil {
+		t.Log(err)
+	} else {
+		result := getResponse.(*pddpopauthtokenrefresh.Response)
 		fmt.Println(result)
 	}
 }
